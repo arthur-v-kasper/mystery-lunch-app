@@ -1,8 +1,23 @@
 # frozen_string_literal: true
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+
+ActiveRecord::Base.transaction do
+  department = %w[Operations Sales Marketing Risk Management Finance HR Development Data]
+  department.each { |department| Department.create!(name: department) }
+
+  def create_user(email)
+    User.create!(user_name: email, password: 'fake-password')
+  end
+
+  103.times do
+    randomly_department = Department.find_by(name: department.sample)
+    full_name = Faker::Name.name
+    email = Faker::Internet.email(name: full_name,
+                                   separators: '_', domain: 'creditshelf.com')
+    user = create_user(email)
+
+    Employee.create!(full_name:,
+                      email:,
+                      user:,
+                      department: randomly_department)
+  end
+end
