@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  has_secure_password
+
   has_one :employee
 
   validates :user_name, :password, presence: true
