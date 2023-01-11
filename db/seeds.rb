@@ -12,12 +12,12 @@ ActiveRecord::Base.transaction do
     randomly_department = Department.find_by(name: department.sample)
     full_name = Faker::Name.name
     email = Faker::Internet.email(name: full_name,
-                                   separators: '_', domain: 'creditshelf.com')
+                                  separators: '_', domain: 'creditshelf.com')
     user = create_user(email)
 
     Employee.create!(full_name:,
-                      email:,
-                      user:,
-                      department: randomly_department)
+                     email:,
+                     user:,
+                     department: randomly_department)
   end
 end
