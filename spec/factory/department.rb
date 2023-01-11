@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :department do
     name { Faker::IndustrySegments.sector }
-    
+
     trait :empty do
       name { nil }
     end
