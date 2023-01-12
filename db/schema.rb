@@ -41,8 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_231259) do
   create_table "mystery_lunches", force: :cascade do |t|
     t.integer "year_month", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["year_month"], name: "index_mystery_lunches_on_year_month", unique: true
+    t.datetime "updated_at", null: false    
   end
 
   create_table "users", force: :cascade do |t|
