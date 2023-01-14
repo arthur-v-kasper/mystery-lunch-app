@@ -3,8 +3,7 @@
 class Employee < ApplicationRecord
   after_create :set_mystery_lunch_employee_schedule
 
-  belongs_to :department
-  belongs_to :user
+  belongs_to :department  
 
   validates :full_name, :email, presence: true
   validates_format_of :email, with: /\A(\S+)@(.+)\.(\S+)\z/
