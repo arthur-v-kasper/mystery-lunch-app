@@ -10,49 +10,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_11_231259) do
-  create_table "departments", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+ActiveRecord::Schema[7.0].define(version: 20_230_113_010_728) do
+  create_table 'departments', force: :cascade do |t|
+    t.string 'name', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "employees", force: :cascade do |t|
-    t.string "full_name", null: false
-    t.string "picture"
-    t.integer "department_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "email", null: false
-    t.index ["department_id"], name: "index_employees_on_department_id"
-    t.index ["user_id"], name: "index_employees_on_user_id"
+  create_table 'employees', force: :cascade do |t|
+    t.string 'full_name', null: false
+    t.string 'picture'
+    t.integer 'department_id', null: false
+    t.integer 'user_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'email', null: false
+    t.index ['department_id'], name: 'index_employees_on_department_id'
+    t.index ['user_id'], name: 'index_employees_on_user_id'
   end
 
-  create_table "mystery_lunch_employees", force: :cascade do |t|
-    t.integer "employee_id", null: false
-    t.integer "mystery_lunch_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["employee_id"], name: "index_mystery_lunch_employees_on_employee_id"
-    t.index ["mystery_lunch_id"], name: "index_mystery_lunch_employees_on_mystery_lunch_id"
+  create_table 'mystery_lunch_employee_schedules', force: :cascade do |t|
+    t.integer 'selected'
+    t.integer 'employee_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['employee_id'], name: 'index_mystery_lunch_employee_schedules_on_employee_id'
   end
 
-  create_table "mystery_lunches", force: :cascade do |t|
-    t.integer "year_month", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false    
+  create_table 'mystery_lunch_employees', force: :cascade do |t|
+    t.integer 'employee_id', null: false
+    t.integer 'mystery_lunch_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['employee_id'], name: 'index_mystery_lunch_employees_on_employee_id'
+    t.index ['mystery_lunch_id'], name: 'index_mystery_lunch_employees_on_mystery_lunch_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "user_name", null: false
-    t.string "password_digest", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'mystery_lunches', force: :cascade do |t|
+    t.integer 'year_month', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key "employees", "departments"
-  add_foreign_key "employees", "users"
-  add_foreign_key "mystery_lunch_employees", "employees"
-  add_foreign_key "mystery_lunch_employees", "mystery_lunches"
+  create_table 'users', force: :cascade do |t|
+    t.string 'user_name', null: false
+    t.string 'password_digest', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  add_foreign_key 'employees', 'departments'
+  add_foreign_key 'employees', 'users'
+  add_foreign_key 'mystery_lunch_employee_schedules', 'employees'
+  add_foreign_key 'mystery_lunch_employees', 'employees'
+  add_foreign_key 'mystery_lunch_employees', 'mystery_lunches'
 end

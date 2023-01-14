@@ -4,10 +4,10 @@ class MysteryLunchEmployeeSchedule < ApplicationRecord
   attribute :selected, default: 0
 
   scope :not_selected, -> { where('selected = 0') }
-  scope 
+  scope
 
   def selected!
     self.selected = 1
-    self.save!
+    save!
   end
 end
