@@ -10,8 +10,8 @@ class MysteryLunch < ApplicationRecord
   CURRENT_YEARMONTH = Time.now.strftime('%Y%m').to_i
 
   private
-  
+
   def default_year_month
-    self.year_month = CURRENT_YEARMONTH if self.year_month.blank?
+    self.year_month = CURRENT_YEARMONTH if year_month.blank?
   end
 end

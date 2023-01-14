@@ -15,7 +15,7 @@ ActiveRecord::Base.transaction do
     email = Faker::Internet.email(name: full_name,
                                   separators: '_', domain: 'creditshelf.com')
     Employee.create!(full_name:,
-                     email:,                     
+                     email:,
                      department: randomly_department)
   end
 
@@ -25,8 +25,13 @@ ActiveRecord::Base.transaction do
   end
 
   def create_mystery_lunch
-    # (Time.now.months_ago(3)).strftime("%Y%m").to_i    
+    # (Time.now.months_ago(3)).strftime("%Y%m").to_i
     MysteryLunch.create!
+  end
+
+  def create_mystery_lunch_employees(mystery_lunch_id, employee_id)
+    MysteryLunchEmployeeSchedule.find_by(employee_id:).selected!
+    MysteryLunchEmployee.create!(mystery_lunch_id:, employee_id:)
   end
 
   def pair_employee_mystery_lunch
@@ -34,9 +39,8 @@ ActiveRecord::Base.transaction do
     mystery_lunch = create_mystery_lunch
     # check_last_three_lunches(random_employees)
     random_employees.each do |random_employee|
-      random_employee.selected!
-      MysteryLunchEmployee.create!(mystery_lunch:,
-                                   employee_id: random_employee.employee_id)
+      create_mystery_lunch_employees(mystery_lunch.id,
+                                     random_employee.employee_id)
     end
   end
 
@@ -44,9 +48,8 @@ ActiveRecord::Base.transaction do
     last_employee = MysteryLunchEmployeeSchedule.not_selected.first
     department_id = last_employee.employee.department.id
     mystery_lunch = mystery_lunch_diferent_departament(department_id)
-    last_employee.selected!
-    MysteryLunchEmployee.create!(mystery_lunch_id: mystery_lunch.mystery_lunch_id,
-                                   employee_id: last_employee.employee.id)                                   
+    create_mystery_lunch_employees(mystery_lunch.mystery_lunch_id,
+                                   last_employee.employee.id)
   end
 
   def mystery_lunch_diferent_departament(department_id)
@@ -55,20 +58,16 @@ ActiveRecord::Base.transaction do
                         .where("departments.id != #{department_id}")
                         .group('mystery_lunch_employees.mystery_lunch_id')
                         .having('COUNT(DISTINCT departments.id) > 1')
-                        .select("mystery_lunch_employees.mystery_lunch_id")
+                        .select('mystery_lunch_employees.mystery_lunch_id')
                         .first
   end
 
   loop do
     create_mystery_lunch
     pair_employee_mystery_lunch
-    
-    if quantity_employees_not_selected == 1      
-      set_last_employee_mystery_lunch
-    end
 
-    if quantity_employees_not_selected == 0      
-      break
-    end    
+    set_last_employee_mystery_lunch if quantity_employees_not_selected == 1
+
+    break if quantity_employees_not_selected == 0
   end
 end
