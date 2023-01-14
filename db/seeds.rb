@@ -34,10 +34,20 @@ ActiveRecord::Base.transaction do
     MysteryLunchEmployee.create!(mystery_lunch_id:, employee_id:)
   end
 
+  def check_last_three_lunches(random_employees)    
+    MysteryLunchEmployee.joins(:mystery_lunch)
+    .where("mystery_lunches.year_month >= ? AND mystery_lunch_employees.employee_id IN (?)", 
+           MysteryLunch::THREE_YEARMONTHS_AGO, random_employees.pluck(:employee_id))
+    .group("mystery_lunches.year_month")
+    .having("count(DISTINCT mystery_lunch_id) = 1")
+    .pluck("mystery_lunches.year_month")
+
+  end
+
   def pair_employee_mystery_lunch
     random_employees = MysteryLunchEmployeeSchedule.not_selected.sample(2)
     mystery_lunch = create_mystery_lunch
-    # check_last_three_lunches(random_employees)
+    check_last_three_lunches(random_employees)
     random_employees.each do |random_employee|
       create_mystery_lunch_employees(mystery_lunch.id,
                                      random_employee.employee_id)
@@ -71,3 +81,9 @@ ActiveRecord::Base.transaction do
     break if quantity_employees_not_selected == 0
   end
 end
+
+# select ml.year_month  from mystery_lunch_employees mle
+#  join mystery_lunches ml ON ml.id = mle.mystery_lunch_id and ml.year_month >= 202210 
+# WHERE mle.employee_id in (64, 54)
+# GROUP by ml.year_month
+# HAVING count(DISTINCT mle.mystery_lunch_id) = 1

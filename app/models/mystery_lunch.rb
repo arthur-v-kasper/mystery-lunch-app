@@ -7,7 +7,8 @@ class MysteryLunch < ApplicationRecord
 
   before_validation :default_year_month
 
-  CURRENT_YEARMONTH = Time.now.strftime('%Y%m').to_i
+  CURRENT_YEARMONTH ||= Time.now.strftime('%Y%m').to_i
+  THREE_YEARMONTHS_AGO ||= (Time.now.months_ago(3)).strftime("%Y%m").to_i
 
   private
 
