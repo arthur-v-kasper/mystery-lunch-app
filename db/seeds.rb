@@ -6,30 +6,27 @@ ActiveRecord::Base.transaction do
   department.each { |department| Department.create!(name: department) }
 
   puts 'Creating fake admin user...'
-  def create_user(email)
-    User.create!(user_name: email, password: 'fake-password')
-  end
+  User.create!(user_name: 'admin@creditshelf.com', password: 'fakepassword')
 
   puts 'Creating fake employees...'
-  55.times do
+  75.times do
     randomly_department = Department.find_by(name: department.sample)
     full_name = Faker::Name.name
     email = Faker::Internet.email(name: full_name,
                                   separators: '_', domain: 'creditshelf.com')
-    user = create_user(email)
-
     Employee.create!(full_name:,
-                     email:,
-                     user:,
+                     email:,                     
                      department: randomly_department)
   end
 
-  puts 'Creating fake history mystery lunches (3 months)...'
+  puts 'Creating fake current mystery lunches...'
+  def quantity_employees_not_selected
+    MysteryLunchEmployeeSchedule.not_selected.count
+  end
 
   def create_mystery_lunch
-    # (Time.now.months_ago(3)).strftime("%Y%m").to_i
-    current_window = Time.now.strftime('%Y%m').to_i
-    MysteryLunch.create!(year_month: current_window)
+    # (Time.now.months_ago(3)).strftime("%Y%m").to_i    
+    MysteryLunch.create!
   end
 
   def pair_employee_mystery_lunch
@@ -43,20 +40,35 @@ ActiveRecord::Base.transaction do
     end
   end
 
-  def set_last_employee_mystery_lunch(last_employee)
+  def set_last_employee_mystery_lunch
+    last_employee = MysteryLunchEmployeeSchedule.not_selected.first
     department_id = last_employee.employee.department.id
-    mystery_lunch_diferent_departament(department_id)
+    mystery_lunch = mystery_lunch_diferent_departament(department_id)
+    last_employee.selected!
+    MysteryLunchEmployee.create!(mystery_lunch_id: mystery_lunch.mystery_lunch_id,
+                                   employee_id: last_employee.employee.id)                                   
   end
 
   def mystery_lunch_diferent_departament(department_id)
-    MysteryLunchEmployee.joins(employee: :department)
-                        .joins(:mystery_lunch)
-                        .where('mystery_lunches.year_month = 202301')
+    MysteryLunchEmployee.joins(employee: :department).joins(:mystery_lunch)
+                        .where("mystery_lunches.year_month = #{MysteryLunch::CURRENT_YEARMONTH}")
                         .where("departments.id != #{department_id}")
                         .group('mystery_lunch_employees.mystery_lunch_id')
                         .having('COUNT(DISTINCT departments.id) > 1')
-                        .select("mystery_lunch_employees.mystery_lunch_id,
-                                COUNT(DISTINCT departments.id) as total_dep")
+                        .select("mystery_lunch_employees.mystery_lunch_id")
                         .first
+  end
+
+  loop do
+    create_mystery_lunch
+    pair_employee_mystery_lunch
+    
+    if quantity_employees_not_selected == 1      
+      set_last_employee_mystery_lunch
+    end
+
+    if quantity_employees_not_selected == 0      
+      break
+    end    
   end
 end
