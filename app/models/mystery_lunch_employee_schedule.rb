@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MysteryLunchEmployeeSchedule < ApplicationRecord
   belongs_to :employee
 
