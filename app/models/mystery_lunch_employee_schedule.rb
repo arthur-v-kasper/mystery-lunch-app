@@ -9,4 +9,8 @@ class MysteryLunchEmployeeSchedule < ApplicationRecord
     self.selected = 1
     save!
   end
+
+  def self.unselect_all!
+    MysteryLunchEmployeeSchedule.update!(selected: 0)
+  end
 end
