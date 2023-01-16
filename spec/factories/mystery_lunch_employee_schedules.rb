@@ -2,7 +2,11 @@
 
 FactoryBot.define do
   factory :mystery_lunch_employee_schedule do
-    selected { 1 }
-    employee { nil }
+    selected { 0 }
+    association :employee
+
+    trait :with_employee do
+      association :employee, :with_department, factory: :employee
+    end
   end
 end
