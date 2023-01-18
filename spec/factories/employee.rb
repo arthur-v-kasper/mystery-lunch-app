@@ -10,10 +10,5 @@ FactoryBot.define do
     trait :with_department do
       association :department, factory: :department
     end
-
-    trait :empty do
-      full_name { nil }
-      email { nil }
-    end
   end
 end
