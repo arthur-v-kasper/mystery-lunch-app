@@ -23,7 +23,7 @@ module ManagerLunch
     end
 
     def lunch_from_diferent_departament(department_id)
-      ManagerLunch::CheckDiferentDepartament.call(department_id, @year_month)
+      ManagerLunch::FindMLunchDiferentDepartament.call(department_id, @year_month)
     end
   end
 end
