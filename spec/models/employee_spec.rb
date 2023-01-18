@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Employee, type: :model do
@@ -5,8 +7,8 @@ RSpec.describe Employee, type: :model do
     it { should validate_presence_of(:full_name) }
     it { should validate_presence_of(:email) }
     it { should validate_length_of(:full_name).is_at_least(3).is_at_most(80) }
-    it { should allow_value("full_name@creditshelf.com").for(:email) }
-    it { should_not allow_value("creditshelf.com").for(:email) }
+    it { should allow_value('full_name@creditshelf.com').for(:email) }
+    it { should_not allow_value('creditshelf.com').for(:email) }
   end
 
   describe 'has associations' do

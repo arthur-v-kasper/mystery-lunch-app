@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe "secure password" do
+  describe 'secure password' do
     it { should have_secure_password }
   end
 
