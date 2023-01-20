@@ -14,7 +14,7 @@ module ManagerLunch
                           .where("mystery_lunches.year_month = #{@year_month}")
                           .where("departments.id != #{@department_id}")
                           .group('mystery_lunch_employees.mystery_lunch_id')
-                          .having('COUNT(DISTINCT departments.id) > 1')
+                          .having('COUNT(DISTINCT departments.id) = 2')
                           .select('mystery_lunch_employees.mystery_lunch_id')
                           .first
     end
