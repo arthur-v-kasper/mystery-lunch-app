@@ -11,7 +11,7 @@ module ManagerLunch
 
     def call
       department_id = employee_department_id
-      mystery_lunch = lunch_from_diferent_departament(department_id)      
+      mystery_lunch = lunch_from_diferent_departament(department_id)
       ManagerLunch::SetEmployee.call(mystery_lunch.mystery_lunch_id,
                                      @employee.employee.id)
     end

@@ -1,6 +1,8 @@
-class DepartmentsController < ApplicationController  
+# frozen_string_literal: true
+
+class DepartmentsController < ApplicationController
   def index
-    @employees = Department.all    
+    @employees = Department.all
     render json: @employees, status: :ok
   end
 end

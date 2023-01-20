@@ -20,9 +20,7 @@ module FakeData
           ManagerLunch::CreatePairEmployee.call(year_month)
           ManagerLunch::SetLastEmployee.call(year_month) if quantity_employees_not_selected == 1
 
-          if quantity_employees_not_selected.zero?            
-            break
-          end
+          break if quantity_employees_not_selected.zero?
         end
       end
     end

@@ -14,7 +14,7 @@ class Employee < ApplicationRecord
   validates :full_name, length: { in: 3..80 }
 
   def inactivated!
-    self.update!(inactivated: 1)
+    update!(inactivated: 1)
   end
 
   private

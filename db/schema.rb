@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_113_010_728) do
+ActiveRecord::Schema[7.0].define(version: 20_230_119_225_020) do
   create_table 'departments', force: :cascade do |t|
     t.string 'name', null: false
     t.datetime 'created_at', null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_113_010_728) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.string 'email', null: false
+    t.integer 'inactivated'
     t.index ['department_id'], name: 'index_employees_on_department_id'
   end
 

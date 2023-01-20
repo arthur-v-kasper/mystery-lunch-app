@@ -8,7 +8,7 @@ class MysteryLunchEmployeeSchedule < ApplicationRecord
   scope :not_selected, -> { where(selected: 0) }
 
   def selected!
-    self.update!(selected: 1)
+    update!(selected: 1)
   end
 
   def self.unselect_all!
