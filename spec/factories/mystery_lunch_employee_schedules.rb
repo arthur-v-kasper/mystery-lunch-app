@@ -6,7 +6,7 @@ FactoryBot.define do
     association :employee
 
     trait :with_employee do
-      association :employee, :with_department, factory: :employee
+      association :employee, factory: :employee
     end
   end
 end
