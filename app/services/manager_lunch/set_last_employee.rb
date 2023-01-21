@@ -2,18 +2,19 @@
 
 module ManagerLunch
   class SetLastEmployee < ApplicationService
-    attr_accessor :year_month
+    attr_accessor :year_month, :mls_employee
 
-    def initialize(year_month = MysteryLunch::CURRENT_YEARMONTH)
+    def initialize(year_month, mls_employee = nil)
       @year_month = year_month
-      @employee = last_employee_not_selected
+      @mls_employee = mls_employee
     end
 
-    def call
+    def call    
+      @mls_employee = last_employee_not_selected if @mls_employee.nil?
       department_id = employee_department_id
       mystery_lunch = lunch_from_diferent_departament(department_id)
       ManagerLunch::SetEmployee.call(mystery_lunch.mystery_lunch_id,
-                                     @employee.employee.id)
+                                     @mls_employee.employee.id)
     end
 
     private
@@ -27,7 +28,7 @@ module ManagerLunch
     end
 
     def employee_department_id
-      @employee.employee.department.id
+      @mls_employee.employee.department.id
     end
   end
 end

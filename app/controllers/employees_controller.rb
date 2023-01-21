@@ -8,14 +8,16 @@ class EmployeesController < ApplicationController
 
   def create
     Employee.create!(params_employee)
-    ManagerLunch::SetLastEmployee.call
+    ManagerLunch::SetLastEmployee.call(MysteryLunch::CURRENT_YEARMONTH)
     render json: 'The employee was created successfully.', status: :ok
   end
 
-  def destroy
+  def destroy    
     @employee = Employee.find(params[:id])
     @employee.inactivated!
-    render json: 'The employee was deleted successfully.', status: :ok
+    # binding.break
+    ManagerLunch::HandleRemainingEmployees.call(@employee.id)
+    render json: 'The employee was deleted successfully.', status: :ok    
   end
 
   def update
