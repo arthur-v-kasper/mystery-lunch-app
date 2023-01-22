@@ -51,7 +51,9 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 gem 'faker'
+
 gem 'jwt'
+
 gem 'rubocop', require: false
 
 group :development, :test do
