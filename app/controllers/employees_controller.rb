@@ -14,7 +14,7 @@ class EmployeesController < ApplicationController
 
   def destroy
     @employee = Employee.find(params[:id])
-    @employee.inactivated!    
+    @employee.inactivated!
     ManagerLunch::HandleRemainingEmployees.call(@employee.id)
     render json: 'The employee was deleted successfully.', status: :ok
   end
