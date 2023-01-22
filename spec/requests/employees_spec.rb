@@ -42,7 +42,10 @@ RSpec.describe 'Employees', type: :request do
 
   describe '#destroy' do
     context 'when employee exists' do
-      before { delete "/employees/#{employee.id}" }
+      before do
+        allow(ManagerLunch::HandleRemainingEmployees).to receive(:call).with(employee.id)
+        delete "/employees/#{employee.id}"
+      end
 
       it 'inactivate the employee' do
         employee.reload
