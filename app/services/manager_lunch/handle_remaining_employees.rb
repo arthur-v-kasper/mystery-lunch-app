@@ -10,11 +10,11 @@ module ManagerLunch
       @mystery_lunch_group = get_mystery_lunch_group(@mystery_lunch_by_employee.mystery_lunch_id)
     end
 
-    def call          
+    def call
       if mystery_lunch_with_three?
         @mystery_lunch_by_employee.destroy
       else
-        remaining_employee = get_remaining_employee        
+        remaining_employee = get_remaining_employee
         @mystery_lunch_group.destroy_all
         ManagerLunch::SetLastEmployee.call(MysteryLunch::CURRENT_YEARMONTH,
                                            remaining_employee)

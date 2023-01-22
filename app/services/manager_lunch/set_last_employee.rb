@@ -9,10 +9,10 @@ module ManagerLunch
       @mls_employee = mls_employee
     end
 
-    def call    
+    def call
       @mls_employee = last_employee_not_selected if @mls_employee.nil?
       department_id = employee_department_id
-      mystery_lunch = ml_from_diferent_departament(department_id)      
+      mystery_lunch = ml_from_diferent_departament(department_id)
       ManagerLunch::SetEmployee.call(mystery_lunch.mystery_lunch_id,
                                      @mls_employee.employee.id)
     end

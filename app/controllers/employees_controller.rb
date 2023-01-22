@@ -12,12 +12,11 @@ class EmployeesController < ApplicationController
     render json: 'The employee was created successfully.', status: :ok
   end
 
-  def destroy    
+  def destroy
     @employee = Employee.find(params[:id])
-    @employee.inactivated!
-    # binding.break
+    @employee.inactivated!    
     ManagerLunch::HandleRemainingEmployees.call(@employee.id)
-    render json: 'The employee was deleted successfully.', status: :ok    
+    render json: 'The employee was deleted successfully.', status: :ok
   end
 
   def update

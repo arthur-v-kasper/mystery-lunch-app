@@ -22,7 +22,7 @@ module ManagerLunch
     end
 
     def check_last_three_lunches
-      ManagerLunch::CheckLastThreeLunches.call(@random_employees)      
+      ManagerLunch::CheckLastThreeLunches.call(@random_employees)
     end
   end
 end
