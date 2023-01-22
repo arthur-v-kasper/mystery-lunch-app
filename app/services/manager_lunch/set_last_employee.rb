@@ -12,7 +12,7 @@ module ManagerLunch
     def call    
       @mls_employee = last_employee_not_selected if @mls_employee.nil?
       department_id = employee_department_id
-      mystery_lunch = lunch_from_diferent_departament(department_id)
+      mystery_lunch = ml_from_diferent_departament(department_id)      
       ManagerLunch::SetEmployee.call(mystery_lunch.mystery_lunch_id,
                                      @mls_employee.employee.id)
     end
@@ -23,8 +23,8 @@ module ManagerLunch
       MysteryLunchEmployeeSchedule.not_selected.first
     end
 
-    def lunch_from_diferent_departament(department_id)
-      ManagerLunch::FindMLunchDiferentDepartament.call(department_id, @year_month)
+    def ml_from_diferent_departament(department_id)
+      ManagerLunch::FindPairMysteryLunch.call(@year_month, department_id)
     end
 
     def employee_department_id

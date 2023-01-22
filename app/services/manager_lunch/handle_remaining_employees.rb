@@ -10,14 +10,12 @@ module ManagerLunch
       @mystery_lunch_group = get_mystery_lunch_group(@mystery_lunch_by_employee.mystery_lunch_id)
     end
 
-    def call    
-      binding.break  
-      if (@mystery_lunch_group.count == 3)
-        mystery_lunch_by_employee.destroy
+    def call          
+      if mystery_lunch_with_three?
+        @mystery_lunch_by_employee.destroy
       else
-
         remaining_employee = get_remaining_employee        
-        # delete older ml 
+        @mystery_lunch_group.destroy_all
         ManagerLunch::SetLastEmployee.call(MysteryLunch::CURRENT_YEARMONTH,
                                            remaining_employee)
       end
@@ -35,6 +33,10 @@ module ManagerLunch
 
     def get_remaining_employee
       @mystery_lunch_group.where.not(employee_id: @employee_id).first
+    end
+
+    def mystery_lunch_with_three?
+      @mystery_lunch_group.count == 3
     end
   end
 end
