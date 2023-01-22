@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EmployeesController < ApplicationController
-  before_action :authorize, only: %i[create update destory]
+  before_action :authorize, only: %i[create update destroy]
 
   def index
     @employees = Employee.all

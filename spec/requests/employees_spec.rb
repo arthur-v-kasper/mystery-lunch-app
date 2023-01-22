@@ -6,6 +6,10 @@ RSpec.describe 'Employees', type: :request do
   let(:employee) { create(:employee) }
   let(:employees) { create_list(:employee, 3) }
 
+  let(:user) { create(:user) }
+  let(:jwt_token) { JWT.encode({user_id: user.id}, Rails.application.secrets.secret_key_base, 'HS256') }
+  let(:headers) { { 'Authorization': "Bearer #{jwt_token}" } }
+
   describe '#index' do
     before { get '/employees' }
 
@@ -40,11 +44,11 @@ RSpec.describe 'Employees', type: :request do
     end
   end
 
-  describe '#destroy' do
+  describe '#destroy' do    
     context 'when employee exists' do
       before do
-        allow(ManagerLunch::HandleRemainingEmployees).to receive(:call).with(employee.id)
-        delete "/employees/#{employee.id}"
+        allow(ManagerLunch::HandleRemainingEmployees).to receive(:call).with(employee.id)        
+        delete "/employees/#{employee.id}", headers: headers
       end
 
       it 'inactivate the employee' do
@@ -58,7 +62,7 @@ RSpec.describe 'Employees', type: :request do
     end
 
     context 'when employee doesnt exists' do
-      before { delete '/employees/100' }
+      before { delete '/employees/100', headers: headers }
 
       it 'returns a error response' do
         expect(response).to have_http_status(:unprocessable_entity)
@@ -71,7 +75,8 @@ RSpec.describe 'Employees', type: :request do
     let(:invalid_attributes) { { full_name: '', email: '', department_id: 1 } }
 
     context 'with valid attributes' do
-      before { put "/employees/#{employee.id}", params: { id: employee.id, employee: valid_attributes } }
+      before { put "/employees/#{employee.id}", params: { id: employee.id, employee: valid_attributes }, headers: headers }
+      
 
       it 'updates the employee' do
         employee.reload
@@ -86,8 +91,8 @@ RSpec.describe 'Employees', type: :request do
     end
 
     context 'with invalid attributes' do
-      before { put "/employees/#{employee.id}", params: { id: employee.id, employee: invalid_attributes } }
-
+      before { put "/employees/#{employee.id}", params: { id: employee.id, employee: invalid_attributes }, headers: headers }
+        
       it 'returns an error response' do
         expect(response).to have_http_status(:unprocessable_entity)
       end
