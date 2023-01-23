@@ -2,6 +2,7 @@
 
 class MysteryLunch < ApplicationRecord
   has_many :mystery_lunch_employees
+  has_many :employees, through: :mystery_lunch_employees
 
   validates :year_month, presence: true
 
