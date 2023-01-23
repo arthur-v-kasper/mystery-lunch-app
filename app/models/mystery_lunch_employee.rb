@@ -11,10 +11,10 @@ class MysteryLunchEmployee < ApplicationRecord
                                         }
 
   scope :pair_current_yearmonth, lambda { |yearmonth|
-    joins(:mystery_lunch)
-      .where("mystery_lunches.year_month = #{yearmonth}")
-      .group('mystery_lunch_id')
-      .having('COUNT(employee_id) = 2')
-      .select('mystery_lunch_id')
-  }
+                                   joins(:mystery_lunch)
+                                     .where("mystery_lunches.year_month = #{yearmonth}")
+                                     .group('mystery_lunch_id')
+                                     .having('COUNT(employee_id) = 2')
+                                     .select('mystery_lunch_id')
+                                 }
 end
