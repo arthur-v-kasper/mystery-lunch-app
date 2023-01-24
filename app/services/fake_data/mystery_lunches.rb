@@ -15,20 +15,8 @@ module FakeData
 
       @past_year_months.each do |year_month|
         puts "Creating fake mystery lunches for #{year_month}..."
-        MysteryLunchEmployeeSchedule.unselect_all!
-        loop do
-          ManagerLunch::CreatePairEmployee.call(year_month)
-          ManagerLunch::SetLastEmployee.call(year_month) if quantity_employees_not_selected == 1
-
-          break if quantity_employees_not_selected.zero?
-        end
+        ManagerLunch::MysteryLunchesMonth.call(year_month)
       end
-    end
-
-    private
-
-    def quantity_employees_not_selected
-      MysteryLunchEmployeeSchedule.not_selected.count
     end
   end
 end
