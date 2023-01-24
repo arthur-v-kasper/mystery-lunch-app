@@ -8,7 +8,8 @@ module ManagerLunch
       @year_month = year_month 
     end
 
-    def call     
+    def call
+      return if already_loaded?
       MysteryLunchEmployeeSchedule.unselect_all!
       loop do
         ManagerLunch::CreatePairEmployee.call(year_month)
@@ -21,6 +22,10 @@ module ManagerLunch
 
     def quantity_employees_not_selected
       MysteryLunchEmployeeSchedule.not_selected.count
+    end
+
+    def already_loaded?
+      MysteryLunch.where(year_month: @year_month).count > 0
     end
   end
 end
