@@ -1,8 +1,31 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createGlobalStyle } from "styled-components";
+import Navbar from "./Navbar";
+import Body from "./Body";
 
-const Hello = () => {
-  return <div>Hello, Rails 7!</div>;
+const GlobalStyle = createGlobalStyle`
+
+  html{    
+    box-sizing: border-box;
+  }
+
+  *,*:before, *:after {
+    box-sizing: inherit;
+  }
+
+  body {
+    margin: 0;
+  }
+`;
+
+const App = () => {
+  return (
+    <>
+      <GlobalStyle />
+      <Navbar />
+      <Body />
+    </>
+  );
 };
 
-export default Hello;
+export default App;

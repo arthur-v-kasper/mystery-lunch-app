@@ -2,12 +2,18 @@
   "name": "app",
   "private": "true",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@hotwired/stimulus": "^3.2.1",
     "@hotwired/turbo-rails": "^7.2.4",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/lab": "^5.0.0-alpha.117",
+    "@mui/material": "^5.11.6",
     "esbuild": "^0.16.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remount": "^1.0.0"
+    "remount": "^1.0.0",
+    "styled-components": "^5.3.6"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
