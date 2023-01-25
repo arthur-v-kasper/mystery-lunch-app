@@ -15,6 +15,7 @@ const Header = styled.div`
   display: flex;
 `;
 
+
 const MysteryLunchList = () => {
   return (
     <Card sx={{ minWidth: 100 }}>
@@ -26,6 +27,7 @@ const MysteryLunchList = () => {
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               label="Month"
+              defaultValue={0}
             >
               <MenuItem value={0}>Zero</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
