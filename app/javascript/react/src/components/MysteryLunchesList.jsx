@@ -28,13 +28,6 @@ const MysteryLunchList = () => {
 
   const { data, error, isLoading } = useQuery("mysteryLunches", getFacts);
 
-  // React.useEffect(() => {
-  //   async function bla() {
-  //     if (data) console.log("data xx", data);
-  //   }
-  //   bla();
-  // }, [data]);
-
   if (isLoading) return <div>Loading...</div>;
   if (error)
     return <div>Oops... somenthing went wrong when fetch the data</div>;
