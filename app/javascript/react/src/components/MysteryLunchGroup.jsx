@@ -16,13 +16,18 @@ export default function MysteryLunchGroup({ mysteryLunch }) {
       </Typography>
       <List>
         {mysteryLunch.employees.map((employee) => (
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                {employee.picture ? employee.picture : <EmojiEmotionsIcon />}
+          <ListItem key={employee.id}>
+            <ListItemAvatar key={employee.id}>
+              <Avatar key={employee.id}>
+                {employee.picture ? (
+                  employee.picture
+                ) : (
+                  <EmojiEmotionsIcon key={employee.id} />
+                )}
               </Avatar>
             </ListItemAvatar>
             <ListItemText
+              key={employee.id}
               primary={employee.full_name}
               secondary={employee.department}
             />
