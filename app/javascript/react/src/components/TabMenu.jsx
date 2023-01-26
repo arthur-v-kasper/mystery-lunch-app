@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import MysteryLunchList from "./MysteryLunchesList";
+import Employees from "./Employee";
 
 const TAB_ITEM = {
   ML: "mystery_lunches",
@@ -30,7 +30,9 @@ const TabMenu = () => {
       <TabPanel value={TAB_ITEM.ML}>
         <MysteryLunchList />
       </TabPanel>
-      <TabPanel value={TAB_ITEM.EMP}>Item Two</TabPanel>
+      <TabPanel value={TAB_ITEM.EMP}>
+        <Employees />
+      </TabPanel>
     </TabContext>
   );
 };
