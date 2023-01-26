@@ -1,4 +1,4 @@
-function getLastSixMonths() {
+export function getLastSixMonths() {
   const date = new Date();
   const months = [];
   for (let i = 0; i < 6; i++) {
@@ -6,7 +6,7 @@ function getLastSixMonths() {
     let month = date.getMonth() + 1;
     month = month < 10 ? `0${month}` : month;
     const key = `${year}${month}`;
-    months.push(parseInt(key));
+    months.push(key);
     date.setMonth(date.getMonth() - 1);
   }
   return months;
