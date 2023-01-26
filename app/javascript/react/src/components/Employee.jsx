@@ -6,6 +6,15 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import DeleteIcon from "@mui/icons-material/Delete";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import IconButton from "@mui/material/IconButton";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+
 import { useQuery } from "react-query";
 
 export default function Employees() {
@@ -22,9 +31,44 @@ export default function Employees() {
 
   return (
     <Box>
+      <>
+        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <InputLabel id="demo-simple-select-helper-label">
+            Year Month
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            label="Year Month"
+            defaultValue={1}
+          >
+            <MenuItem value={1}>Engineering</MenuItem>
+          </Select>
+          <FormHelperText>
+            <strong>Departments 👆:</strong>
+          </FormHelperText>
+        </FormControl>
+      </>
       <List>
         {data.employees.map((employee) => (
-          <ListItem>
+          <ListItem
+            secondaryAction={
+              <>
+                <IconButton
+                  aria-label="Updapte Employee"
+                  title="Updapte Employee"
+                >
+                  <BorderColorIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="Delete Employee"
+                  title="Delete Employee"
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </>
+            }
+          >
             <ListItemAvatar>
               <Avatar>
                 {employee.picture ? employee.picture : <EmojiEmotionsIcon />}
