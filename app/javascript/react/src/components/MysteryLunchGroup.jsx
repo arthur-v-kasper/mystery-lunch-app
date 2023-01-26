@@ -18,26 +18,26 @@ function generate(element) {
   );
 }
 
-export default function MysteryLunchGroup() {
+export default function MysteryLunchGroup({ mysteryLunch }) {
   return (
     <Box sx={{ maxWidth: 280 }}>
       <Typography variant="h6" component="div">
-        Arthur and Kasper Lunch's
+        Mystery Lunch <strong>#{mysteryLunch.id} 🧆</strong>
       </Typography>
       <List>
-        {generate(
+        {mysteryLunch.employees.map((employee) => (
           <ListItem>
             <ListItemAvatar>
               <Avatar>
-                <EmojiEmotionsIcon />
+                {employee.picture ? employee.picture : <EmojiEmotionsIcon />}
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary="Single-line item ......"
-              secondary={"Secondary text"}
+              primary={employee.full_name}
+              secondary={employee.department}
             />
           </ListItem>
-        )}
+        ))}
       </List>
     </Box>
   );
