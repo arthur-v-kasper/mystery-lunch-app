@@ -21,12 +21,15 @@ const MysteryLunchList = () => {
   const lastSixMonths = getLastSixMonths();
   const defaultValue = lastSixMonths[0];
 
-  const getFacts = async () => {
+  const getMysteryLunches = async () => {
     const response = await fetch("http://localhost:3000/mystery_lunches");
     return response.json();
   };
 
-  const { data, error, isLoading } = useQuery("mysteryLunches", getFacts);
+  const { data, error, isLoading } = useQuery(
+    "mysteryLunches",
+    getMysteryLunches
+  );
 
   if (isLoading) return <div>Loading...</div>;
   if (error)
