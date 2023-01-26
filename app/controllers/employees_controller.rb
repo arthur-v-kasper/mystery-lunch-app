@@ -4,8 +4,7 @@ class EmployeesController < ApplicationController
   before_action :authorize, only: %i[create update destroy]
 
   def index
-    @employees = Employee.all
-    render json: @employees, status: :ok
+    @employees = Employee.all    
   end
 
   def create
