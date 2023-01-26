@@ -20,16 +20,21 @@ const Header = styled.div`
 const MysteryLunchList = () => {
   const lastSixMonths = getLastSixMonths();
   const defaultValue = lastSixMonths[0];
+  const [yearMonth, setYearMonth] = React.useState(defaultValue);
+  const selectValue = yearMonth !== defaultValue ? yearMonth : defaultValue;
 
   const getMysteryLunches = async () => {
-    const response = await fetch("http://localhost:3000/mystery_lunches");
+    const response = await fetch(
+      `http://localhost:3000/mystery_lunches?year_month=${yearMonth}`
+    );
     return response.json();
   };
 
-  const { data, error, isLoading } = useQuery(
-    "mysteryLunches",
-    getMysteryLunches
-  );
+  const { data, error, isLoading } = useQuery(yearMonth, getMysteryLunches);
+
+  const handleChange = (event) => {
+    setYearMonth(event.target.value);
+  };
 
   if (isLoading) return <div>Loading...</div>;
   if (error)
@@ -40,7 +45,7 @@ const MysteryLunchList = () => {
       <Card sx={{ minWidth: 100 }}>
         <CardContent>
           <Header>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
               <InputLabel id="demo-simple-select-helper-label">
                 Year Month
               </InputLabel>
@@ -48,7 +53,8 @@ const MysteryLunchList = () => {
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 label="Year Month"
-                defaultValue={defaultValue}
+                defaultValue={selectValue}
+                onChange={handleChange}
               >
                 {lastSixMonths.map((yearMonth) => (
                   <MenuItem key={yearMonth} value={yearMonth}>
@@ -63,7 +69,7 @@ const MysteryLunchList = () => {
           </Header>
           <Grid container spacing={2}>
             {data.mystery_lunches.map((ml) => (
-              <Grid item xs={6} md={4}>
+              <Grid item xs={6} md={4} key={ml.id}>
                 <MysteryLunchGroup mysteryLunch={ml} />
               </Grid>
             ))}
