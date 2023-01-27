@@ -9,19 +9,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useMysteryLunch } from "../context/MysteryLunchContext";
 
 export default function Login() {
-  const { openLogin, handleCloseLogin } = useMysteryLunch();
+  const { openLogin, handleCloseLogin, handleAuthToken } = useMysteryLunch();
   const [user, setUSer] = useState("");
   const [password, setPassword] = useState("");
-
-  // // const [postData, { status }] = useMutation(async (data) => {
-  //   const response = await fetch("http://localhost:3000/auth", {
-  //     method: "POST",
-  //     body: JSON.stringify(data),
-  //     headers: { "Content-Type": "application/json" },
-  //   });
-  //   return response.json();
-  // // });
-  // https://www.youtube.com/watch?v=r9aDSqIhiwU
 
   const postData = async (user) => {
     const response = await fetch("http://localhost:3000/auth", {
@@ -35,11 +25,16 @@ export default function Login() {
     return response.json();
   };
 
-  const { mutate, isLoading, error } = useMutation(postData);
+  const { mutateAsync, isLoading, error } = useMutation(postData);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    postData({ username, password });
+  const handleLogin = async () => {
+    const response = await mutateAsync({
+      user_name: user,
+      password: password,
+    });
+    const authToken = response?.token;
+    if (authToken) handleAuthToken(authToken);
+    handleCloseLogin();
   };
 
   const handleUser = (event) => setUSer(event.target.value);
@@ -51,7 +46,7 @@ export default function Login() {
 
   return (
     <div>
-      <Dialog open={openLogin} onClose={handleCloseLogin}>
+      <Dialog open={openLogin}>
         <DialogTitle>Login</DialogTitle>
         <DialogContent>
           <TextField
@@ -78,12 +73,7 @@ export default function Login() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseLogin}>Cancel</Button>
-          <Button
-            type="submit"
-            onClick={() => mutate({ user_name: user, password: password })}
-          >
-            Login
-          </Button>
+          <Button onClick={() => handleLogin()}>Login</Button>
         </DialogActions>
       </Dialog>
     </div>
