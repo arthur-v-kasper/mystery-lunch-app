@@ -6,7 +6,6 @@ export function MysteryLunchProvider({ children }) {
   const [openLogin, setOpenLogin] = useState(false);
 
   const handleOpenLogin = () => {
-    console.log("chamandoooo");
     setOpenLogin(true);
   };
 
