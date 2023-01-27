@@ -3,7 +3,9 @@
 class EmployeesController < ApplicationController
   before_action :authorize, only: %i[create update destroy]
 
-  def index
+  def index        
+    @department_id = params['department'] 
+    return employees_by_department if @department_id
     @employees = Employee.all    
   end
 
@@ -30,5 +32,9 @@ class EmployeesController < ApplicationController
 
   def params_employee
     params.require(:employee).permit(:full_name, :email, :department_id)
+  end
+
+  def employees_by_department
+    @employees = Employee.where(department_id: @department_id)
   end
 end

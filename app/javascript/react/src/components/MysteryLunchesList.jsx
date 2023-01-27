@@ -63,7 +63,7 @@ const MysteryLunchList = () => {
                 ))}
               </Select>
               <FormHelperText>
-                <strong>Mystery Lanches from 👆:</strong>
+                <strong>Mystery Lanches from 👆</strong>
               </FormHelperText>
             </FormControl>
           </Header>

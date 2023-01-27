@@ -18,39 +18,71 @@ import FormControl from "@mui/material/FormControl";
 import { useQuery } from "react-query";
 
 export default function Employees() {
-  const getFacts = async () => {
-    const response = await fetch("http://localhost:3000/employees");
+  const [department, setDepartment] = React.useState(null);
+
+  const getEmployees = async () => {
+    const response = await fetch(
+      `http://localhost:3000/employees?department=${department}`
+    );
     return response.json();
   };
 
-  const { data, error, isLoading } = useQuery("employees", getFacts);
+  const getDepartments = async () => {
+    const response = await fetch("http://localhost:3000/departments");
+    return response.json();
+  };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error)
+  const {
+    data: dataEmployees,
+    error: errorEmployees,
+    isLoading: isLoadingEmployees,
+  } = useQuery(`employees-from-${department}`, getEmployees);
+
+  const {
+    data: dataDepartments,
+    error: errorDepartments,
+    isLoading: isLoadingDepartments,
+  } = useQuery("departments", getDepartments);
+
+  const handleChange = (event) => setDepartment(event.target.value);
+
+  React.useEffect(() => {
+    if (dataDepartments) setDepartment(dataDepartments[0]?.id);
+  }, [dataDepartments]);
+
+  if (isLoadingEmployees || isLoadingDepartments) return <div>Loading...</div>;
+  if (errorEmployees || errorDepartments)
     return <div>Oops... somenthing went wrong when fetch the data</div>;
 
   return (
     <Box>
-      <>
-        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-          <InputLabel id="demo-simple-select-helper-label">
-            Year Month
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            label="Year Month"
-            defaultValue={1}
-          >
-            <MenuItem value={1}>Engineering</MenuItem>
-          </Select>
-          <FormHelperText>
-            <strong>Departments 👆:</strong>
-          </FormHelperText>
-        </FormControl>
-      </>
+      {department && (
+        <>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-simple-select-helper-label">
+              Departments
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              label="Departments"
+              onChange={handleChange}
+              defaultValue={department}
+            >
+              {dataDepartments.map((department) => (
+                <MenuItem key={department.id} value={department.id}>
+                  {department.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText>
+              <strong>Departments 👆</strong>
+            </FormHelperText>
+          </FormControl>
+        </>
+      )}
       <List>
-        {data.employees.map((employee) => (
+        {dataEmployees.employees.map((employee) => (
           <ListItem
             secondaryAction={
               <>
