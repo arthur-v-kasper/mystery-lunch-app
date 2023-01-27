@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { createGlobalStyle } from "styled-components";
 import Navbar from "./Navbar";
 import Body from "./Body";
+import Login from "./Login";
+import { MysteryLunchProvider } from "../context/MysteryLunchContext";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -24,9 +26,12 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
-      <Navbar />
-      <Body />
+      <MysteryLunchProvider>
+        <GlobalStyle />
+        <Navbar />
+        <Body />
+        <Login />
+      </MysteryLunchProvider>
     </QueryClientProvider>
   );
 };
