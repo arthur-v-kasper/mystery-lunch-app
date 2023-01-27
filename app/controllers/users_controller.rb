@@ -2,8 +2,11 @@
 
 class UsersController < ApplicationController
   def auth
-    user = User.find_by(user_name: login_params[:user_name])
-    if user&.authenticate(login_params[:password])
+    
+    binding.break
+    
+    user = User.find_by(user_name: params[:user_name])
+    if user&.authenticate(params[:password])
       token = encode({ user_id: user.id })
       render json: { user:, token: }
     else
