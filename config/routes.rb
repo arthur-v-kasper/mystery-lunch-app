@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   root to: 'main#index'
   post '/auth', to: 'users#auth'
-  get '/departments', to: 'departments#index'
-  get '/mystery_lunches', to: 'mystery_lunches#index' 
+  get '/departments', to: 'departments#index'  
+  get '/mystery_lunches', to: 'mystery_lunches#index'   
   resources :employees
 end
