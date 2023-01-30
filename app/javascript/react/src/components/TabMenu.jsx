@@ -5,7 +5,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import MysteryLunchList from "./MysteryLunchesList";
-import Employees from "./Employee";
+import EmployeesList from "./EmployeesList";
 
 const TAB_ITEM = {
   ML: "mystery_lunches",
@@ -22,7 +22,7 @@ const TabMenu = () => {
   return (
     <TabContext value={value}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <TabList onChange={handleChange} aria-label="lab API tabs example">
+        <TabList onChange={handleChange}>
           <Tab label="Mystery Lunches" value={TAB_ITEM.ML} />
           <Tab label="Employees" value={TAB_ITEM.EMP} />
         </TabList>
@@ -31,7 +31,7 @@ const TabMenu = () => {
         <MysteryLunchList />
       </TabPanel>
       <TabPanel value={TAB_ITEM.EMP}>
-        <Employees />
+        <EmployeesList />
       </TabPanel>
     </TabContext>
   );

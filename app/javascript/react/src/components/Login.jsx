@@ -1,31 +1,20 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useMysteryLunch } from "../context/MysteryLunchContext";
+import { postLoginData } from "../services/fetchApi";
 
 export default function Login() {
   const { openLogin, handleCloseLogin, handleAuthToken } = useMysteryLunch();
   const [user, setUSer] = useState("");
   const [password, setPassword] = useState("");
 
-  const postData = async (user) => {
-    const response = await fetch("http://localhost:3000/auth", {
-      method: "POST",
-      body: JSON.stringify({
-        user_name: user.user_name,
-        password: user.password,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-    return response.json();
-  };
-
-  const { mutateAsync, isLoading, error } = useMutation(postData);
+  const { mutateAsync, isLoading, error } = useMutation(postLoginData);
 
   const handleLogin = async () => {
     const response = await mutateAsync({
