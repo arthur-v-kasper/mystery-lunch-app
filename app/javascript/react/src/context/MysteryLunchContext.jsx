@@ -5,8 +5,10 @@ export const MysteryLunchContext = createContext();
 
 export function MysteryLunchProvider({ children }) {
   const [openLogin, setOpenLogin] = useState(false);
+  const [formEmployee, setFormEmployee] = useState(false);
+  const [currentEmployee, setCurrentEmployee] = useState(0);
+
   const valueCookie = getCookie("authtoken");
-  console.log({ valueCookie });
   const [authToken, setAuthToken] = useCookie("authtoken", valueCookie);
 
   const handleOpenLogin = () => {
@@ -15,6 +17,14 @@ export function MysteryLunchProvider({ children }) {
 
   const handleCloseLogin = () => {
     setOpenLogin(false);
+  };
+
+  const showFormEmployee = () => {
+    setFormEmployee(true);
+  };
+
+  const hideFormEmployee = () => {
+    setFormEmployee(false);
   };
 
   const handleAuthToken = (authToken) => {
@@ -29,11 +39,16 @@ export function MysteryLunchProvider({ children }) {
     <MysteryLunchContext.Provider
       value={{
         openLogin,
+        authToken,
+        formEmployee,
         handleOpenLogin,
         handleCloseLogin,
         handleAuthToken,
         handleLogout,
-        authToken,
+        showFormEmployee,
+        hideFormEmployee,
+        setCurrentEmployee,
+        currentEmployee,
       }}
     >
       {children}
