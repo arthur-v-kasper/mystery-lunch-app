@@ -7,7 +7,6 @@ import { useMysteryLunch } from "../context/MysteryLunchContext";
 
 const Navbar = () => {
   const { handleOpenLogin, handleLogout, authToken } = useMysteryLunch();
-  console.log({ authToken });
   const handleAuthentication = authToken ? handleLogout : handleOpenLogin;
   const textAuthButton = authToken ? "Logout" : "Login";
 
