@@ -17,9 +17,11 @@ import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import EmployeeForm from "./EmployeeForm";
 import DeleteEmployee from "./DeleteEmployee";
-
-import { useMysteryLunch } from "../context/MysteryLunchContext";
-import { getDepartments, getEmployeesByDepartment } from "../services/fetchApi";
+import { useMysteryLunch } from "../../context/MysteryLunchContext";
+import {
+  getDepartments,
+  getEmployeesByDepartment,
+} from "../../services/fetchApi";
 
 export default function EmployeesList() {
   const [department, setDepartment] = useState(null);

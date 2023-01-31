@@ -4,8 +4,8 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import MysteryLunchList from "./MysteryLunchesList";
-import EmployeesList from "./EmployeesList";
+import MysteryLunchList from "../MysteryLunch/MysteryLunchesList";
+import EmployeesList from "../Employee/EmployeesList";
 
 const TAB_ITEM = {
   ML: "mystery_lunches",

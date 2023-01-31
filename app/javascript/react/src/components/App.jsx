@@ -1,9 +1,9 @@
 import * as React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { createGlobalStyle } from "styled-components";
-import Navbar from "./Navbar";
-import Body from "./Body";
-import Login from "./Login";
+import Navbar from "./Navegation/Navbar";
+import Body from "./Navegation/Body";
+import Login from "./Login/Login";
 import { MysteryLunchProvider } from "../context/MysteryLunchContext";
 
 const GlobalStyle = createGlobalStyle`

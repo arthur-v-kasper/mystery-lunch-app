@@ -5,8 +5,8 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useMysteryLunch } from "../context/MysteryLunchContext";
-import { deleteEmployeeData } from "../services/fetchApi";
+import { useMysteryLunch } from "../../context/MysteryLunchContext";
+import { deleteEmployeeData } from "../../services/fetchApi";
 
 export default function DeleteEmployee({ employeeId, refetch }) {
   const { hideDeleteEmployee, openDelete } = useMysteryLunch();

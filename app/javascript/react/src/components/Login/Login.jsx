@@ -6,8 +6,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useMysteryLunch } from "../context/MysteryLunchContext";
-import { postLoginData } from "../services/fetchApi";
+import { useMysteryLunch } from "../../context/MysteryLunchContext";
+import { postLoginData } from "../../services/fetchApi";
 
 export default function Login() {
   const { openLogin, handleCloseLogin, handleAuthToken } = useMysteryLunch();

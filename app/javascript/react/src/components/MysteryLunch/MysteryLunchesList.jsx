@@ -11,11 +11,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { getLastSixMonths } from "../helpers/dateSelectData";
-
-const Header = styled.div`
-  /* display: flex; */
-`;
+import { getLastSixMonths } from "../../helpers/dateSelectData";
 
 const MysteryLunchList = () => {
   const lastSixMonths = getLastSixMonths();
@@ -44,7 +40,7 @@ const MysteryLunchList = () => {
     <>
       <Card sx={{ minWidth: 100 }}>
         <CardContent>
-          <Header>
+          <div>
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
               <InputLabel id="demo-simple-select-helper-label">
                 Year Month
@@ -66,7 +62,7 @@ const MysteryLunchList = () => {
                 <strong>Mystery Lanches from 👆</strong>
               </FormHelperText>
             </FormControl>
-          </Header>
+          </div>
           <Grid container spacing={2}>
             {data.mystery_lunches.map((ml) => (
               <Grid item xs={6} md={4} key={ml.id}>

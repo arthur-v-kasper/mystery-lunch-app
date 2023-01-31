@@ -13,13 +13,13 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
-import { useMysteryLunch } from "../context/MysteryLunchContext";
+import { useMysteryLunch } from "../../context/MysteryLunchContext";
 import {
   getDepartments,
   getEmployee,
   updateEmployeeData,
   createEmployeeData,
-} from "../services/fetchApi";
+} from "../../services/fetchApi";
 
 const EmployeeForm = ({ employeeId = null, refetch }) => {
   const { hideFormEmployee } = useMysteryLunch();

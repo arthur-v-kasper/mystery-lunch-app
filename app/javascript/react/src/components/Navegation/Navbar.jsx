@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useMysteryLunch } from "../context/MysteryLunchContext";
+import { useMysteryLunch } from "../../context/MysteryLunchContext";
 
 const Navbar = () => {
   const { handleOpenLogin, handleLogout, authToken } = useMysteryLunch();
