@@ -3,6 +3,17 @@ import { getCookie } from "react-use-cookie";
 
 const authToken = getCookie("authtoken");
 
+const fetchMysteryLunches = async (yearMonth) => {
+  const response = await fetch(
+    `http://localhost:3000/mystery_lunches?year_month=${yearMonth}`
+  );
+  return response.json();
+};
+
+export const getMysteryLunches = (yearMonth) => {
+  return useQuery(yearMonth, async () => await fetchMysteryLunches(yearMonth));
+};
+
 export const fetchEmployees = async (department) => {
   const response = await fetch(
     `http://localhost:3000/employees?department=${department}`

@@ -9,9 +9,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
-import styled from "styled-components";
-import { useQuery } from "react-query";
 import { getLastSixMonths } from "../../helpers/dateSelectData";
+import { getMysteryLunches } from "../../services/fetchApi";
 
 const MysteryLunchList = () => {
   const lastSixMonths = getLastSixMonths();
@@ -19,14 +18,7 @@ const MysteryLunchList = () => {
   const [yearMonth, setYearMonth] = React.useState(defaultValue);
   const selectValue = yearMonth !== defaultValue ? yearMonth : defaultValue;
 
-  const getMysteryLunches = async () => {
-    const response = await fetch(
-      `http://localhost:3000/mystery_lunches?year_month=${yearMonth}`
-    );
-    return response.json();
-  };
-
-  const { data, error, isLoading } = useQuery(yearMonth, getMysteryLunches);
+  const { data, error, isLoading } = getMysteryLunches(yearMonth);
 
   const handleChange = (event) => {
     setYearMonth(event.target.value);
