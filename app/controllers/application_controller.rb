@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   private
 
   def show_errors_invalid_record(exception)
-    render json: { errors: "Oops, somenthing went wrong with this record: #{exception.record.errors.full_messages}" },
+    render json: { errors: "Oops.. #{exception.record.errors.full_messages}" },
            status: :unprocessable_entity
   end
 

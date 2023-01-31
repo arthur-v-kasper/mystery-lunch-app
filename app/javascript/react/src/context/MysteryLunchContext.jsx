@@ -7,6 +7,7 @@ export function MysteryLunchProvider({ children }) {
   const [openLogin, setOpenLogin] = useState(false);
   const [formEmployee, setFormEmployee] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState(0);
+  const [openDelete, setOpenDelete] = React.useState(false);
 
   const valueCookie = getCookie("authtoken");
   const [authToken, setAuthToken] = useCookie("authtoken", valueCookie);
@@ -35,6 +36,14 @@ export function MysteryLunchProvider({ children }) {
     setAuthToken("");
   };
 
+  const showDeleteEmployee = () => {
+    setOpenDelete(true);
+  };
+
+  const hideDeleteEmployee = () => {
+    setOpenDelete(false);
+  };
+
   return (
     <MysteryLunchContext.Provider
       value={{
@@ -49,6 +58,9 @@ export function MysteryLunchProvider({ children }) {
         hideFormEmployee,
         setCurrentEmployee,
         currentEmployee,
+        showDeleteEmployee,
+        hideDeleteEmployee,
+        openDelete,
       }}
     >
       {children}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "react-query";
 import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -15,11 +16,13 @@ import { useMysteryLunch } from "../context/MysteryLunchContext";
 import {
   getDepartments,
   getEmployee,
-  postEmployeeData,
+  updateEmployeeData,
+  createEmployeeData,
 } from "../services/fetchApi";
 
-const EmployeeForm = ({ employeeId = null }) => {
-  const { hideFormEmployee, authToken } = useMysteryLunch();
+const EmployeeForm = ({ employeeId = null, refetch }) => {
+  const { hideFormEmployee } = useMysteryLunch();
+  const [errors, setErrors] = useState();
   const [employee, setEmployee] = useState({
     id: null,
     full_name: null,
@@ -41,7 +44,6 @@ const EmployeeForm = ({ employeeId = null }) => {
 
   useEffect(() => {
     if (!isLoadingEmployee && employeeId) {
-      console.log("passou no if ", dataEmployee);
       setEmployee(dataEmployee);
     }
   }, [dataEmployee]);
@@ -50,15 +52,18 @@ const EmployeeForm = ({ employeeId = null }) => {
     setEmployee({ ...employee, [event.target.name]: event.target.value });
   };
 
-  const { mutateAsync } = useMutation(postEmployeeData);
+  const handleEmployee = employeeId ? updateEmployeeData : createEmployeeData;
+  const { mutateAsync } = useMutation(handleEmployee);
 
-  const handleSaveEmployee = async () => {
-    console.log(authToken);
-    const response = await mutateAsync(employee);
-    hideFormEmployee();
+  const saveEmployee = async () => {
+    const res = await mutateAsync(employee);
+    if (res["errors"]) {
+      setErrors(res["errors"]);
+    } else {
+      refetch();
+      hideFormEmployee();
+    }
   };
-
-  console.log("valores::", isLoadingEmployee, errorEmployee);
 
   if (isLoadingDepartments || isLoadingEmployee) return <div>Loading...</div>;
   if (errorDepartments || errorEmployee)
@@ -110,12 +115,17 @@ const EmployeeForm = ({ employeeId = null }) => {
                 ))}
               </Select>
             )}
+            {errors && (
+              <Alert sx={{ marginTop: 1 }} variant="filled" severity="error">
+                {errors}
+              </Alert>
+            )}
           </Grid>
         </DialogContent>
       </Box>
       <DialogActions>
         <Button onClick={hideFormEmployee}>Cancel</Button>
-        <Button onClick={handleSaveEmployee}>Save</Button>
+        <Button onClick={saveEmployee}>Save</Button>
       </DialogActions>
     </Dialog>
   );

@@ -46,24 +46,48 @@ export const postLoginData = async (user) => {
   return response.json();
 };
 
-export const postEmployeeData = async (employee) => {
-  data = JSON.stringify({
+const employeeAttributes = (employee) => {
+  return JSON.stringify({
     full_name: employee.full_name,
     email: employee.email,
     department_id: employee.department_id,
   });
+};
 
-  console.log(data);
-
+export const updateEmployeeData = async (employee) => {
+  const employeeData = employeeAttributes(employee);
   const response = await fetch(
     `http://localhost:3000/employees/${employee.id}`,
     {
       method: "PATCH",
-      body: JSON.stringify({
-        full_name: employee.full_name,
-        email: employee.email,
-        department_id: employee.department_id,
-      }),
+      body: employeeData,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${authToken}`,
+      },
+    }
+  );
+  return response.json();
+};
+
+export const createEmployeeData = async (employee) => {
+  const employeeData = employeeAttributes(employee);
+  const response = await fetch(`http://localhost:3000/employees/`, {
+    method: "POST",
+    body: employeeData,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${authToken}`,
+    },
+  });
+  return response.json();
+};
+
+export const deleteEmployeeData = async (employeeId) => {
+  const response = await fetch(
+    `http://localhost:3000/employees/${employeeId}`,
+    {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `${authToken}`,

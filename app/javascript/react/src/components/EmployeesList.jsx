@@ -16,6 +16,8 @@ import FormControl from "@mui/material/FormControl";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import EmployeeForm from "./EmployeeForm";
+import DeleteEmployee from "./DeleteEmployee";
+
 import { useMysteryLunch } from "../context/MysteryLunchContext";
 import { getDepartments, getEmployeesByDepartment } from "../services/fetchApi";
 
@@ -23,8 +25,13 @@ export default function EmployeesList() {
   const [department, setDepartment] = useState(null);
   const [employee, setEmployee] = useState(null);
 
-  const { authToken, showFormEmployee, setCurrentEmployee, formEmployee } =
-    useMysteryLunch();
+  const {
+    authToken,
+    showFormEmployee,
+    formEmployee,
+    showDeleteEmployee,
+    openDelete,
+  } = useMysteryLunch();
   const disableButton = authToken ? false : true;
   const enableTooltip = authToken ? "" : "Only admin users can interact";
 
@@ -38,15 +45,24 @@ export default function EmployeesList() {
     data: dataEmployees,
     error: errorEmployees,
     isLoading: isLoadingEmployees,
-  } = getEmployeesByDepartment(`employeesfrom${department}`, department);
+    refetch,
+  } = getEmployeesByDepartment(["employees", department], department, {
+    enabled: false,
+  });
+
+  const handleCreateEmployee = () => {
+    setEmployee(null);
+    showFormEmployee();
+  };
 
   const handleEditEmployee = (id) => {
     setEmployee(id);
     showFormEmployee();
   };
 
-  const handleCreateEmployee = () => {
-    showFormEmployee();
+  const handleDeleteEmployee = (id) => {
+    setEmployee(id);
+    showDeleteEmployee();
   };
 
   const handleChange = (event) => setDepartment(event.target.value);
@@ -111,6 +127,7 @@ export default function EmployeesList() {
                     disabled={disableButton}
                     aria-label="Delete Employee"
                     title="Delete Employee"
+                    onClick={() => handleDeleteEmployee(employee.id)}
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -131,7 +148,8 @@ export default function EmployeesList() {
           </ListItem>
         ))}
       </List>
-      {formEmployee && <EmployeeForm employeeId={employee} />}
+      {formEmployee && <EmployeeForm employeeId={employee} refetch={refetch} />}
+      {<DeleteEmployee employeeId={employee} refetch={refetch} />}
     </Box>
   );
 }
