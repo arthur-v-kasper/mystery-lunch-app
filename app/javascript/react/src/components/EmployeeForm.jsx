@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "react-query";
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -25,8 +26,8 @@ const EmployeeForm = ({ employeeId = null, refetch }) => {
   const [errors, setErrors] = useState();
   const [employee, setEmployee] = useState({
     id: null,
-    full_name: null,
-    email: null,
+    full_name: "",
+    email: "",
     department_id: 1,
   });
 
@@ -79,48 +80,50 @@ const EmployeeForm = ({ employeeId = null, refetch }) => {
         }}
       >
         <DialogContent>
-          <Grid justify="center" alignItems="center" direction="row">
-            <TextField
-              id="outlined-basic"
-              fullWidth
-              label="Full Name"
-              variant="outlined"
-              name="full_name"
-              value={employee.full_name}
-              onChange={handleChange}
-            />
-            <TextField
-              id="outlined-basic"
-              fullWidth
-              label="Email"
-              name="email"
-              value={employee.email}
-              variant="outlined"
-              onChange={handleChange}
-            />
-            <InputLabel id="dep-label">Department</InputLabel>
-            {employee?.department_id && (
-              <Select
-                id="department"
-                label="Departments"
-                name="department_id"
-                onChange={handleChange}
-                value={employee.department_id}
+          <Container>
+            <Grid justify="center" alignItems="center">
+              <TextField
+                id="outlined-basic"
                 fullWidth
-              >
-                {dataDepartments.map((department) => (
-                  <MenuItem key={department.id} value={department.id}>
-                    {department.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            )}
-            {errors && (
-              <Alert sx={{ marginTop: 1 }} variant="filled" severity="error">
-                {errors}
-              </Alert>
-            )}
-          </Grid>
+                label="Full Name"
+                variant="outlined"
+                name="full_name"
+                value={employee.full_name}
+                onChange={handleChange}
+              />
+              <TextField
+                id="outlined-basic"
+                fullWidth
+                label="Email"
+                name="email"
+                value={employee.email}
+                variant="outlined"
+                onChange={handleChange}
+              />
+              <InputLabel id="dep-label">Department</InputLabel>
+              {employee?.department_id && (
+                <Select
+                  id="department"
+                  label="Departments"
+                  name="department_id"
+                  onChange={handleChange}
+                  value={employee.department_id}
+                  fullWidth
+                >
+                  {dataDepartments.map((department) => (
+                    <MenuItem key={department.id} value={department.id}>
+                      {department.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+              {errors && (
+                <Alert sx={{ marginTop: 1 }} variant="filled" severity="error">
+                  {errors}
+                </Alert>
+              )}
+            </Grid>
+          </Container>
         </DialogContent>
       </Box>
       <DialogActions>

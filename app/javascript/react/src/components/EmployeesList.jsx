@@ -111,6 +111,7 @@ export default function EmployeesList() {
       <List>
         {dataEmployees.employees.map((employee) => (
           <ListItem
+            key={employee.id}
             secondaryAction={
               <Tooltip title={enableTooltip}>
                 <div>

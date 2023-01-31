@@ -70,7 +70,7 @@ const MysteryLunchList = () => {
           <Grid container spacing={2}>
             {data.mystery_lunches.map((ml) => (
               <Grid item xs={6} md={4} key={ml.id}>
-                <MysteryLunchGroup mysteryLunch={ml} />
+                <MysteryLunchGroup mysteryLunch={ml} key={ml.id} />
               </Grid>
             ))}
           </Grid>

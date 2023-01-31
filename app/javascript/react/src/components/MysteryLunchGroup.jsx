@@ -10,8 +10,8 @@ import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 
 export default function MysteryLunchGroup({ mysteryLunch }) {
   return (
-    <Box sx={{ maxWidth: 300 }}>
-      <Typography variant="h6" component="div">
+    <Box sx={{ maxWidth: 300 }} key={mysteryLunch.id}>
+      <Typography variant="h6" component="div" key={mysteryLunch.id}>
         Mystery Lunch <strong>#{mysteryLunch.id} 🧆</strong>
       </Typography>
       <List>
