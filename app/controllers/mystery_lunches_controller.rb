@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class MysteryLunchesController < ApplicationController
-  def index    
-    @mystery_lunches = MysteryLunch.where(year_month:)    
+  def index
+    @mystery_lunches = MysteryLunch.where(year_month:)
   end
 
   private

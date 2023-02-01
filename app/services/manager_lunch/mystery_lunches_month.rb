@@ -5,17 +5,18 @@ module ManagerLunch
     attr_accessor :year_month
 
     def initialize(year_month = MysteryLunch::CURRENT_YEARMONTH)
-      @year_month = year_month 
+      @year_month = year_month
     end
 
     def call
       return if already_loaded?
+
       MysteryLunchEmployeeSchedule.unselect_all!
       loop do
         ManagerLunch::CreatePairEmployee.call(year_month)
         ManagerLunch::SetLastEmployee.call(year_month) if quantity_employees_not_selected == 1
         break if quantity_employees_not_selected.zero?
-      end      
+      end
     end
 
     private
@@ -25,7 +26,7 @@ module ManagerLunch
     end
 
     def already_loaded?
-      MysteryLunch.where(year_month: @year_month).count > 0
+      MysteryLunch.where(year_month: @year_month).count.positive?
     end
   end
 end

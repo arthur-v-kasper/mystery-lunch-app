@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Use this file to easily define all of your cron jobs.
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.
@@ -35,8 +37,7 @@ set :output, './log/cron.log'
 #   runner "ManagerLunch::MysteryLunchesMonth.call"
 # end
 
-
 every '0 1 1 * *' do
   runner "puts 'Load the mystery lunches from ....'"
-  runner "ManagerLunch::MysteryLunchesMonth.call"
+  runner 'ManagerLunch::MysteryLunchesMonth.call'
 end
