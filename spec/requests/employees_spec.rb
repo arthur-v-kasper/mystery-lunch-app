@@ -2,19 +2,19 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Employees', type: :request do
+RSpec.describe 'Employees', type: :request do    
+  let!(:department) { create(:department) }
   let(:employee) { create(:employee) }
   let(:employees) { create_list(:employee, 3) }
 
   let(:user) { create(:user) }
   let(:jwt_token) { JWT.encode({user_id: user.id}, Rails.application.secrets.secret_key_base, 'HS256') }
   let(:headers) { { 'Authorization': "Bearer #{jwt_token}" } }
-
   describe '#index' do
     before { get '/employees' }
 
     it 'returns http success' do
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:ok)    
     end
 
     it 'assigns @employees' do
@@ -24,21 +24,16 @@ RSpec.describe 'Employees', type: :request do
 
   describe '#create' do
     context 'with valid params' do
-      let(:valid_attributes) { attributes_for(:employee) }
-      before { post '/employees', params: { employee: valid_attributes } }
-      xit 'creates a new Employee' do
-        expect { post '/employees', params: { employee: valid_attributes } }.to change { Employee.count }.by(1)
-        binding.break
+      let(:valid_attributes) { { full_name: 'Nice people', email: 'nice.people@creditshelft.com', department_id: 1 } }
+      before do 
+        allow(ManagerLunch::SetLastEmployee).to receive(:call).with(MysteryLunch::CURRENT_YEARMONTH)        
+        post '/employees', params: { employee: valid_attributes }, headers: headers 
+      end
+      it 'creates a new Employee' do        
         expect(Employee.count).to eq(1)
       end
 
-      xit 'calls ManagerLunch::SetLastEmployee.call' do
-        expect(ManagerLunch::SetLastEmployee).to receive(:call)
-        post '/employees', params: { employee: valid_attributes }
-      end
-
-      xit 'returns a success response' do
-        post '/employees', params: { employee: valid_attributes }
+      it 'returns a success response' do
         expect(response).to have_http_status(:ok)
       end
     end
