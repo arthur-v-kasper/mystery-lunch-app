@@ -1,5 +1,4 @@
-import * as React from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
@@ -9,13 +8,15 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
+import Loading from "../States/Loading";
+import Error from "../States/Error";
 import { getLastSixMonths } from "../../helpers/dateSelectData";
 import { getMysteryLunches } from "../../services/fetchApi";
 
 const MysteryLunchList = () => {
   const lastSixMonths = getLastSixMonths();
   const defaultValue = lastSixMonths[0];
-  const [yearMonth, setYearMonth] = React.useState(defaultValue);
+  const [yearMonth, setYearMonth] = useState(defaultValue);
   const selectValue = yearMonth !== defaultValue ? yearMonth : defaultValue;
 
   const { data, error, isLoading } = getMysteryLunches(yearMonth);
@@ -24,9 +25,8 @@ const MysteryLunchList = () => {
     setYearMonth(event.target.value);
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error)
-    return <div>Oops... somenthing went wrong when fetch the data</div>;
+  if (isLoading) return <Loading />;
+  if (error) return <Error />;
 
   return (
     <>
@@ -34,15 +34,14 @@ const MysteryLunchList = () => {
         <CardContent>
           <div>
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-              <InputLabel id="demo-simple-select-helper-label">
-                Year Month
-              </InputLabel>
+              <InputLabel id="select-yearmonth">Year Month</InputLabel>
               <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
+                labelId="selectyearmonth"
+                id="selectyearmonth"
                 label="Year Month"
                 defaultValue={selectValue}
                 onChange={handleChange}
+                SelectDisplayProps={{ "data-testid": "selectyearmonth" }}
               >
                 {lastSixMonths.map((yearMonth) => (
                   <MenuItem key={yearMonth} value={yearMonth}>

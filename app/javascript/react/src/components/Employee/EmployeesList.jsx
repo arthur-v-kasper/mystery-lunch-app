@@ -17,6 +17,8 @@ import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import EmployeeForm from "./EmployeeForm";
 import DeleteEmployee from "./DeleteEmployee";
+import Loading from "../States/Loading";
+import Error from "../States/Error";
 import { useMysteryLunch } from "../../context/MysteryLunchContext";
 import {
   getDepartments,
@@ -27,13 +29,8 @@ export default function EmployeesList() {
   const [department, setDepartment] = useState(null);
   const [employee, setEmployee] = useState(null);
 
-  const {
-    authToken,
-    showFormEmployee,
-    formEmployee,
-    showDeleteEmployee,
-    openDelete,
-  } = useMysteryLunch();
+  const { authToken, showFormEmployee, formEmployee, showDeleteEmployee } =
+    useMysteryLunch();
   const disableButton = authToken ? false : true;
   const enableTooltip = authToken ? "" : "Only admin users can interact";
 
@@ -73,9 +70,8 @@ export default function EmployeesList() {
     if (dataDepartments) setDepartment(dataDepartments[0]?.id);
   }, [dataDepartments]);
 
-  if (isLoadingEmployees || isLoadingDepartments) return <div>Loading...</div>;
-  if (errorEmployees || errorDepartments)
-    return <div>Oops... somenthing went wrong when fetch the data</div>;
+  if (isLoadingEmployees || isLoadingDepartments) return <Loading />;
+  if (errorEmployees || errorDepartments) return <Error />;
 
   return (
     <Box>
@@ -91,6 +87,7 @@ export default function EmployeesList() {
             label="Departments"
             onChange={handleChange}
             defaultValue={department}
+            SelectDisplayProps={{ "data-testid": "selectdep" }}
           >
             {dataDepartments.map((department) => (
               <MenuItem key={department.id} value={department.id}>

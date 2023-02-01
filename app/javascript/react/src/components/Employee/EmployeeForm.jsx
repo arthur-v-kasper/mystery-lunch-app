@@ -13,6 +13,8 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
+import Loading from "../States/Loading";
+import Error from "../States/Error";
 import { useMysteryLunch } from "../../context/MysteryLunchContext";
 import {
   getDepartments,
@@ -66,9 +68,8 @@ const EmployeeForm = ({ employeeId = null, refetch }) => {
     }
   };
 
-  if (isLoadingDepartments || isLoadingEmployee) return <div>Loading...</div>;
-  if (errorDepartments || errorEmployee)
-    return <div>Oops... somenthing went wrong when fetch the data</div>;
+  if (isLoadingDepartments || isLoadingEmployee) return <Loading />;
+  if (errorDepartments || errorEmployee) return <Error />;
 
   return (
     <Dialog open={true}>
