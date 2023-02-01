@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation } from "react-query";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -6,6 +6,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import Alert from "@mui/material/Alert";
 import { useMysteryLunch } from "../../context/MysteryLunchContext";
 import { postLoginData } from "../../services/fetchApi";
 
@@ -13,25 +14,27 @@ export default function Login() {
   const { openLogin, handleCloseLogin, handleAuthToken } = useMysteryLunch();
   const [user, setUSer] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
 
-  const { mutateAsync, isLoading, error } = useMutation(postLoginData);
+  const { mutateAsync } = useMutation(postLoginData);
 
   const handleLogin = async () => {
     const response = await mutateAsync({
       user_name: user,
       password: password,
     });
-    const authToken = response?.token;
-    if (authToken) handleAuthToken(authToken);
-    handleCloseLogin();
+
+    if (response["errors"]) {
+      setErrors(response["errors"]);
+    } else {
+      const authToken = response?.token;
+      handleAuthToken(authToken);
+      handleCloseLogin();
+    }
   };
 
   const handleUser = (event) => setUSer(event.target.value);
   const handlePassword = (event) => setPassword(event.target.value);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error)
-    return <div>Oops... somenthing went wrong when fetch the data</div>;
 
   return (
     <div>
@@ -59,6 +62,11 @@ export default function Login() {
             value={password}
             onChange={handlePassword}
           />
+          {errors && (
+            <Alert sx={{ marginTop: 1 }} variant="filled" severity="error">
+              {errors}
+            </Alert>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseLogin}>Cancel</Button>
