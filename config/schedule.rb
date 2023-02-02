@@ -34,7 +34,7 @@ set :output, './log/cron.log'
 #   runner "ManagerLunch::MysteryLunchesMonth.call"
 # end
 
-# every '0 1 1 * *' do
-#   runner "puts 'Load the mystery lunches from ....'"
-#   runner 'ManagerLunch::MysteryLunchesMonth.call'
-# end
+every '0 1 1 * *' do
+  runner "puts 'Load the mystery lunches from ....'"
+  runner 'ManagerLunch::MysteryLunchesMonth.call'
+end
