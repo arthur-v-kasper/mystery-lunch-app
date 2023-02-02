@@ -1,24 +1,81 @@
-# README
+# Mystery lunch App - Arthur Valentim Kasper
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Hey Guys, all right?
 
-Things you may want to cover:
+Below is some information about the project. :smile:
 
-* Ruby version
+it was done using:
 
-* System dependencies
+```
+ruby 3.1.2
+rails 7.0.4
+react 18.2.0
+```
 
-* Configuration
+In addition, some additional gems/libs were used, which were as follows:
 
-* Database creation
+### Backend
 
-* Database initialization
+- [Faker](https://github.com/faker-ruby/faker) to generate data for the tests
+- [Jbuilder](https://github.com/rails/jbuilder) to serialize the API
+- [RSpec](https://github.com/rspec/rspec-rails) to build the tests
+- [Shoulda matchers](https://matchers.shoulda.io/) to write one-liner tests
+- [Factorybot](https://github.com/thoughtbot/factory_bot) to create fake active records to tests
+- [Whenever](https://github.com/javan/whenever) to cron jobs
 
-* How to run the test suite
+### Frontend
 
-* Services (job queues, cache servers, search engines, etc.)
+- [MUI](https://mui.com/) for friendly components
+- [React Query](https://react-query-v3.tanstack.com/) to fetch requestes
 
-* Deployment instructions
+_How I used SQLite, I didn't use docker for this project_
 
-* ...
+After clone the project, run:
+
+```
+bundle install
+```
+
+To load the fake data run:
+
+```
+rails db:reset
+```
+
+This will create the database based on existing migrations, after finished it will print an output like that:
+
+```
+Dropped database 'db/development.sqlite3'
+Dropped database 'db/test.sqlite3'
+Created database 'db/development.sqlite3'
+Created database 'db/test.sqlite3'
+Creating departments...
+Creating fake admin user...
+Creating fake employees...
+Creating fake mystery lunches for 202211...
+Creating fake mystery lunches for 202212...
+Creating fake mystery lunches for 202301...
+Creating fake mystery lunches for 202302...
+```
+
+## About the project
+
+It was made using Rails for backend and React for frontend, lets talk about for each part, starting with the back end, as it is more complex and covers most of the project.
+
+## ER Model
+
+Below is an image of the database modeling and an explanation about each table and its responsibility
+![](/img/er.png)
+
+- **Department**: Departments of creditshelf.
+- **Employees**: Employees of creditshelf, that has a relation with departments.
+- **Mystery Lunches**: This table has records that represent the mystery lunches, one record is one mystery lunch to a specific period (Year Month), that can have two or three employees.
+- **Mystery Lunch Employees**: This table has the employees of a mystery lunch, so here its have an association with the mystery_lunches table and employees.
+- **Mystery Lunch Employee Schedules**: This table is used to manage employees who have already had a mystery lunch scheduled.
+- **Users**: Admin user that can manager the employees.
+
+The main logic to handle with the business rules are in the service folder:
+
+![](/img/service_folder.png)
+
+I 
