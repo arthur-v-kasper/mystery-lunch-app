@@ -2,7 +2,7 @@
 
 Hey Guys, all right?
 
-Below is some information about the project. :smile:
+Below is some information about the project. =]
 
 it was done using:
 
@@ -12,7 +12,7 @@ rails 7.0.4
 react 18.2.0
 ```
 
-In addition, some additional gems/libs were used, which were as follows:
+In addition, some additional gems and libs were used, which were as follows:
 
 ### Backend
 
@@ -44,7 +44,8 @@ To load the fake data run:
 rails db:reset
 ```
 
-This will create the database based on existing migrations, after finished it will print an output like that:
+This will create the database based on existing migrations after finished it will print output like that:
+:
 
 ```
 Dropped database 'db/development.sqlite3'
@@ -60,7 +61,7 @@ Creating fake mystery lunches for 202301...
 Creating fake mystery lunches for 202302...
 ```
 
-start API and frontend
+start APIs and frontend
 
 ```
 ./bin/dev
@@ -98,7 +99,7 @@ yarn jest test
 
 ## About the project
 
-It was made using Rails for backend and React for frontend, lets talk about for each part, starting with the back end, as it is more complex and covers most of the project.
+It was made using Rails for backend and React for frontend, let's talk about each part, starting with the back end, as it is more complex and covers most of the project.
 
 # Backend
 
@@ -161,9 +162,13 @@ The Employee tab lists all the employees filtered by department.
 
 As could see above, it's necessary to log in to manage the employees, so if click on login e enter with credentials, it's possible manage the employees
 
-```
-user: admin@creditshelf.com
-password: fakepassword
-```
-
 And all the action of employee management triggers another action follow the rules of the project.
+
+## Notes
+I know that I was late to finish the project, and these are some points that I ended up not being able to implement that I would like to:
+  - Uploading images
+  - More tests (Mainly on the frontend)
+  - additional feature
+
+Well guys, I hope that you enjoy this, see you!
+![](http://www.reactiongifs.com/wp-content/uploads/2013/07/ralph-wave.gif)
