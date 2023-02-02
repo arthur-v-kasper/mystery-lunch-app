@@ -171,4 +171,5 @@ I know that I was late to finish the project, and these are some points that I e
   - additional feature
 
 Well guys, I hope that you enjoy this, see you!
-![](http://www.reactiongifs.com/wp-content/uploads/2013/07/ralph-wave.gif)
+
+![](https://media.giphy.com/media/ASd0Ukj0y3qMM/giphy.gif)
