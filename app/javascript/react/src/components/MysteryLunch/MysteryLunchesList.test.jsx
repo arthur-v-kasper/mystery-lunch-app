@@ -1,4 +1,5 @@
 import React from "react";
+import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 import { getLastSixMonths } from "../../helpers/dateSelectData";
 import { getMysteryLunches } from "../../services/fetchApi";
@@ -31,13 +32,13 @@ describe("MysteryLunchList", () => {
 
   test("Should render year months select", async () => {
     await customRender();
-    screen.getByTestId(/selectyearmonth/i);
-    screen.getByText(/Mystery Lanches from 👆/i);
+    expect(screen.getByTestId(/selectyearmonth/i)).toBeInTheDocument();
+    expect(screen.getByText(/Mystery Lanches from 👆/i)).toBeInTheDocument();
   });
 
   test("Should render Mystery Lunches", async () => {
     await customRender();
-    screen.getByText(/#112 🧆/i);
-    screen.getByText(/#113 🧆/i);
+    expect(screen.getByText(/#112 🧆/i)).toBeInTheDocument();
+    expect(screen.getByText(/#113 🧆/i)).toBeInTheDocument();
   });
 });

@@ -8,7 +8,6 @@ export function MysteryLunchProvider({ children }) {
   const [formEmployee, setFormEmployee] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState(0);
   const [openDelete, setOpenDelete] = React.useState(false);
-
   const valueCookie = getCookie("authtoken");
   const [authToken, setAuthToken] = useCookie("authtoken", valueCookie);
 
