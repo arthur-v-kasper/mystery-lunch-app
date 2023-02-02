@@ -54,13 +54,17 @@ const MysteryLunchList = () => {
               </FormHelperText>
             </FormControl>
           </div>
-          <Grid container spacing={2}>
-            {data.mystery_lunches.map((ml) => (
-              <Grid item xs={6} md={4} key={ml.id}>
-                <MysteryLunchGroup mysteryLunch={ml} key={ml.id} />
-              </Grid>
-            ))}
-          </Grid>
+          {data?.mystery_lunches.length != 0 ? (
+            <Grid container spacing={2}>
+              {data?.mystery_lunches.map((ml) => (
+                <Grid item xs={6} md={4} key={ml.id}>
+                  <MysteryLunchGroup mysteryLunch={ml} key={ml.id} />
+                </Grid>
+              ))}
+            </Grid>
+          ) : (
+            <InputLabel>No data for this period</InputLabel>
+          )}
         </CardContent>
       </Card>
     </>

@@ -30,6 +30,8 @@ In addition, some additional gems/libs were used, which were as follows:
 
 _How I used SQLite, I didn't use docker for this project_
 
+## Running the project
+
 After clone the project, run:
 
 ```
@@ -56,6 +58,42 @@ Creating fake mystery lunches for 202211...
 Creating fake mystery lunches for 202212...
 Creating fake mystery lunches for 202301...
 Creating fake mystery lunches for 202302...
+```
+
+start API and frontend
+
+```
+./bin/dev
+```
+
+Access the app
+
+```
+http://localhost:3000/
+```
+
+default credentials
+
+```
+user: admin@creditshelf.com
+password: fakepassword
+```
+
+Start cron job
+
+```
+crontab -r
+whenever --update-crontab --set environment='development'
+```
+
+run the tests
+
+```
+rspec
+```
+
+```
+yarn jest test
 ```
 
 ## About the project

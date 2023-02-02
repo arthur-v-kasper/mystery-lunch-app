@@ -96,16 +96,14 @@ export default function EmployeesList() {
               </MenuItem>
             ))}
           </Select>
-          <Tooltip title={enableTooltip}>
-            <Button
-              disabled={disableButton}
-              variant="contained"
-              onClick={handleCreateEmployee}
-              sx={{ marginLeft: 1 }}
-            >
-              Add Employee
-            </Button>
-          </Tooltip>
+          <Button
+            disabled={disableButton}
+            variant="contained"
+            onClick={handleCreateEmployee}
+            sx={{ marginLeft: 1 }}
+          >
+            Add Employee
+          </Button>
         </FormControl>
       )}
       <List>
