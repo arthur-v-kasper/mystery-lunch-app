@@ -62,7 +62,9 @@ Creating fake mystery lunches for 202302...
 
 It was made using Rails for backend and React for frontend, lets talk about for each part, starting with the back end, as it is more complex and covers most of the project.
 
-## ER Model
+# Backend
+
+### ER Model
 
 Below is an image of the database modeling and an explanation about each table and its responsibility
 ![](/img/er.png)
@@ -74,8 +76,56 @@ Below is an image of the database modeling and an explanation about each table a
 - **Mystery Lunch Employee Schedules**: This table is used to manage employees who have already had a mystery lunch scheduled.
 - **Users**: Admin user that can manager the employees.
 
+---
+
+### Services
+
 The main logic to handle with the business rules are in the service folder:
 
 ![](/img/service_folder.png)
 
-I 
+I tried to keep the name of the services very straightforward to make it easier to understand, so I create a namespace for each responsibility.
+
+The `fake_data` sub-folder is where fake data are loaded (When running `rails db:reset`) to test the app, each file is responsible to a part, as seen in the picture.
+
+The `manager_lunch` follow the same logic, I created one service for each part used to manage the mystery lunches
+
+---
+
+### Controllers
+
+In the controllers was created the APIs that will be consumed by the frontend, very straightforward as well.
+
+![](/img/controllers_folder.png)
+
+### Cron Job
+
+In the `schedule.rb` has the cron job that will create new mystery lunch for all employees following the rules, every first day of the month, in case of the period already had data, the creation don't happen
+
+# Frontend
+
+In the frontend there are folders to:
+
+- Components, that are used in the app (It's a SPA).
+- Context, the file that have the provider and the custom hook to manager the global context.
+- helpers, have a file with a javascript function.
+- services, have a file that wrap the functions used to fetch the data from API.
+
+# How the APP works
+
+The first tab lists all the Mystery Lunches from the current Year Month, and you can see the previous mystery lunches changed year month ate the select component, above the list.
+
+![](/img/app1.png)
+
+The Employee tab lists all the employees filtered by department.
+
+![](/img/app2.png)
+
+As could see above, it's necessary to log in to manage the employees, so if click on login e enter with credentials, it's possible manage the employees
+
+```
+user: admin@creditshelf.com
+password: fakepassword
+```
+
+And all the action of employee management triggers another action follow the rules of the project.

@@ -21,9 +21,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-# crontab -r
-# whenever --update-crontab
-# whenever --update-crontab --set environment='development'
 
 env :PATH, ENV['PATH']
 
