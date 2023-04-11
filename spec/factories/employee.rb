@@ -5,6 +5,6 @@ FactoryBot.define do
     association :department
     full_fake_name = Faker::Name.name
     full_name { full_fake_name }
-    email { Faker::Internet.email(name: full_fake_name, separators: '_', domain: 'creditshelf') }
+    email { Faker::Internet.email(name: full_fake_name, separators: '_', domain: 'kasper') }
   end
 end

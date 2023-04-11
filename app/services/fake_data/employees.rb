@@ -10,7 +10,7 @@ module FakeData
         department = get_randomly_department
         full_name = Faker::Name.name
         email = Faker::Internet.email(name: full_name,
-                                      separators: '_', domain: 'creditshelf.com')
+                                      separators: '_', domain: 'kasper.com')
         Employee.create!(full_name:, email:, department:)
       end
     end

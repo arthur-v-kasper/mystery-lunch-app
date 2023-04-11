@@ -24,7 +24,7 @@ RSpec.describe 'Employees', type: :request do
 
   describe '#create' do
     context 'with valid params' do
-      let(:valid_attributes) { { full_name: 'Nice people', email: 'nice.people@creditshelft.com', department_id: 1 } }
+      let(:valid_attributes) { { full_name: 'Nice people', email: 'nice.people@kaspert.com', department_id: 1 } }
       before do
         allow(ManagerLunch::SetLastEmployee).to receive(:call).with(MysteryLunch::CURRENT_YEARMONTH)
         post '/employees', params: { employee: valid_attributes }, headers:
@@ -66,7 +66,7 @@ RSpec.describe 'Employees', type: :request do
   end
 
   describe '#update' do
-    let(:valid_attributes) { { full_name: 'Nice people', email: 'nice.people@creditshelft.com', department_id: 1 } }
+    let(:valid_attributes) { { full_name: 'Nice people', email: 'nice.people@kaspert.com', department_id: 1 } }
     let(:invalid_attributes) { { full_name: '', email: '', department_id: 1 } }
 
     context 'with valid attributes' do

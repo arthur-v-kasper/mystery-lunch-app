@@ -6,7 +6,7 @@ module FakeData
 
     def call
       puts 'Creating fake admin user...'
-      User.create!(user_name: 'admin@creditshelf.com', password: 'fakepassword')
+      User.create!(user_name: 'admin@kasper.com', password: 'fakepassword')
     end
   end
 end
