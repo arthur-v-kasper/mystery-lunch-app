@@ -1,8 +1,4 @@
-# Mystery lunch App - Arthur Valentim Kasper
-
-Hey Guys, all right?
-
-Below is some information about the project. =]
+# Mystery lunch App
 
 it was done using:
 
@@ -28,20 +24,25 @@ In addition, some additional gems and libs were used, which were as follows:
 - [MUI](https://mui.com/) for friendly components
 - [React Query](https://react-query-v3.tanstack.com/) to fetch requestes
 
-_How I used SQLite, I didn't use docker for this project_
-
 ## Running the project
 
 After clone the project, run:
 
 ```
-bundle install
+docker compose build
+docker compose up
 ```
 
 To load the fake data run:
 
 ```
-rails db:reset
+docker compose run mysterylunch-web rails db:environment:set RAILS_ENV=development db:reset
+```
+
+To access the rails console run:
+
+```
+docker-compose run mysterylunch-web rails c
 ```
 
 This will create the database based on existing migrations after finished it will print output like that:
@@ -76,7 +77,7 @@ http://localhost:3000/
 default credentials
 
 ```
-user: admin@creditshelf.com
+user: admin@kasper.com
 password: fakepassword
 ```
 
@@ -108,8 +109,8 @@ It was made using Rails for backend and React for frontend, let's talk about eac
 Below is an image of the database modeling and an explanation about each table and its responsibility
 ![](/img/er.png)
 
-- **Department**: Departments of creditshelf.
-- **Employees**: Employees of creditshelf, that has a relation with departments.
+- **Department**: Departments of kasper.
+- **Employees**: Employees of kasper, that has a relation with departments.
 - **Mystery Lunches**: This table has records that represent the mystery lunches, one record is one mystery lunch to a specific period (Year Month), that can have two or three employees.
 - **Mystery Lunch Employees**: This table has the employees of a mystery lunch, so here its have an association with the mystery_lunches table and employees.
 - **Mystery Lunch Employee Schedules**: This table is used to manage employees who have already had a mystery lunch scheduled.
@@ -163,13 +164,3 @@ The Employee tab lists all the employees filtered by department.
 As could see above, it's necessary to log in to manage the employees, so if click on login e enter with credentials, it's possible manage the employees
 
 And all the action of employee management triggers another action follow the rules of the project.
-
-## Notes
-I know that I was late to finish the project, and these are some points that I ended up not being able to implement that I would like to:
-  - Uploading images
-  - More tests (Mainly on the frontend)
-  - additional feature
-
-Well guys, I hope that you enjoy this, see you!
-
-![](https://media.giphy.com/media/ASd0Ukj0y3qMM/giphy.gif)

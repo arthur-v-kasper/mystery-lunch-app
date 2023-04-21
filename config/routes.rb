@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   get '/departments', to: 'departments#index'
   get '/mystery_lunches', to: 'mystery_lunches#index'
   resources :employees, defaults: { format: 'json' }
+
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 end
