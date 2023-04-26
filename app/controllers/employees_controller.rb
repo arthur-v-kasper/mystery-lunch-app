@@ -20,8 +20,8 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
-    @employee.inactivated!
-    ManagerLunch::HandleRemainingEmployees.call(@employee.id)
+    @employee.inactivated!    
+    ManagerLunchJob::HandleRemainingEmployee.perform_async(@employee.id)
     render json: { messsage: 'The employee was deleted successfully.' }, status: :ok
   end
 
